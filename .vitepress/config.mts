@@ -6,16 +6,16 @@ export default defineConfig({
   description: "A VitePress Site",
   themeConfig: {
     nav: [
-      { text: '首页', link: '/zh/' },
-      { text: '示例', link: '/zh/markdown-examples' }
+      { text: '首页', link: '/' },
+      { text: '示例', link: '/markdown-examples' }
     ],
 
     sidebar: [
       {
         text: '示例',
         items: [
-          { text: 'Markdown 示例', link: '/zh/markdown-examples' },
-          { text: '运行时 API 示例', link: '/zh/api-examples' }
+          { text: 'Markdown 示例', link: '/markdown-examples' },
+          { text: '运行时 API 示例', link: '/api-examples' }
         ]
       }
     ],
@@ -28,18 +28,17 @@ export default defineConfig({
     root: {
       label: '简体中文',
       lang: 'zh-CN',
-      link: '/zh/',
       themeConfig: {
         nav: [
-          { text: '首页', link: '/zh/' },
-          { text: '示例', link: '/zh/markdown-examples' }
+          { text: '首页', link: '/' },
+          { text: '示例', link: '/markdown-examples' }
         ],
         sidebar: [
           {
             text: '示例',
             items: [
-              { text: 'Markdown 示例', link: '/zh/markdown-examples' },
-              { text: '运行时 API 示例', link: '/zh/api-examples' }
+              { text: 'Markdown 示例', link: '/markdown-examples' },
+              { text: '运行时 API 示例', link: '/api-examples' }
             ]
           }
         ]

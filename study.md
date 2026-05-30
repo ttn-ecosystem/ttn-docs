@@ -1,2 +1,2 @@
 ## 学习记录
-这是我在学习 TTN 文档时的记录。
+笔记链接：https://www.yuque.com/qiangyujun/xwld32

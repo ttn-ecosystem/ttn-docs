@@ -80,6 +80,28 @@ export default {
 这是一个详情块。
 :::
 
+## Mermaid 图表
+
+**输入**
+
+````md
+```mermaid
+graph TD
+    A
+    B
+    A-->B
+```
+````
+
+**输出**
+
+```mermaid
+graph TD
+    A
+    B
+    A-->B
+```
+
 ## 更多
 
 查看文档了解 [完整的 markdown 扩展列表](https://vitepress.dev/guide/markdown)。

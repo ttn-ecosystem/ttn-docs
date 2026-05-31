@@ -2,16 +2,16 @@
 layout: home
 
 hero:
-  name: "我的项目"
-  text: "VitePress 网站"
-  tagline: 我的项目标语
+  name: "ttn-cli"
+  text: "命令行工具"
+  tagline: ttn-cli 命令行工具文档
   actions:
     - theme: brand
       text: Markdown 示例
-      link: /zh/markdown-examples
+      link: /markdown-examples
     - theme: alt
       text: API 示例
-      link: /zh/api-examples
+      link: /api-examples
 
 features:
   - title: 特性 A

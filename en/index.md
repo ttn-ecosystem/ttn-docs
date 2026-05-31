@@ -3,16 +3,16 @@
 layout: home
 
 hero:
-  name: "My Awesome Project"
-  text: "A VitePress Site"
-  tagline: My great project tagline
+  name: "ttn-cli"
+  text: "CLI Tool"
+  tagline: ttn-cli command line tool documentation
   actions:
     - theme: brand
       text: Markdown Examples
-      link: /markdown-examples
+      link: /en/markdown-examples
     - theme: alt
       text: API Examples
-      link: /api-examples
+      link: /en/api-examples
 
 features:
   - title: Feature A

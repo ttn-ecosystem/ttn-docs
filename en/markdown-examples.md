@@ -80,6 +80,32 @@ This is a dangerous warning.
 This is a details block.
 :::
 
+## Mermaid Diagrams
+
+**Input**
+
+````md
+```mermaid
+graph TD
+    A[Start] --> B{Decision}
+    B -->|Condition 1| C[Process 1]
+    B -->|Condition 2| D[Process 2]
+    C --> E[End]
+    D --> E
+```
+````
+
+**Output**
+
+```mermaid
+graph TD
+    A[Start] --> B{Decision}
+    B -->|Condition 1| C[Process 1]
+    B -->|Condition 2| D[Process 2]
+    C --> E[End]
+    D --> E
+```
+
 ## More
 
 Check out the documentation for the [full list of markdown extensions](https://vitepress.dev/guide/markdown).

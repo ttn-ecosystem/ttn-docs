@@ -3,8 +3,7 @@ layout: home
 
 hero:
   name: "ttn-cli"
-  text: "命令行工具"
-  tagline: ttn-cli 命令行工具文档
+  tagline: 基于 pnpm + lerna 搭建的前端脚手架工具
   actions:
     - theme: brand
       text: Markdown 示例

@@ -4,8 +4,7 @@ layout: home
 
 hero:
   name: "ttn-cli"
-  text: "CLI Tool"
-  tagline: ttn-cli command line tool documentation
+  tagline: Frontend scaffolding tool built with pnpm + lerna
   actions:
     - theme: brand
       text: Markdown Examples

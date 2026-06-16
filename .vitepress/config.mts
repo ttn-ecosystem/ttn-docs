@@ -49,6 +49,8 @@ export default defineConfig({
           { text: '示例', link: '/markdown-examples' }
         ],
         sidebar: [
+          { text: 'ttn-cli 介绍', link: '/guide/introduction/ttn-cli' },
+          { text: 'ttn-cli 架构图', link: '/guide/introduction/architecture-diagram' },
           {
             text: '示例',
             items: [

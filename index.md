@@ -6,14 +6,11 @@ hero:
   tagline: 基于 pnpm + lerna 搭建的前端脚手架工具
   actions:
     - theme: brand
-      text: 快速安装
-      link: /quick-install
+      text: 快速开始 →
+      link: /guide/introduction/ttn-cli.html
     - theme: alt
-      text: 使用示例
-      link: /usage-examples
-    - theme: alt
-      text: 二次开发
-      link: /development-learning
+      text: 版本迭代
+      link: /guide/version-iteration
 
 features:
   - title: 基于模版创建项目

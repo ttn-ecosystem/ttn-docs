@@ -1,0 +1,18 @@
+/* Medium Zoom 样式 */
+.medium-zoom-overlay {
+  z-index: 20;
+}
+
+.medium-zoom-image--opened {
+  z-index: 21;
+}
+
+/* 图片样式 */
+.main img {
+  cursor: zoom-in;
+  transition: transform 0.3s ease;
+}
+
+.main img:hover {
+  transform: scale(1.02);
+}

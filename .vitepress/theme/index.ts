@@ -1,7 +1,39 @@
 import Theme from 'vitepress/theme'
+import mediumZoom from 'medium-zoom'
+import { onMounted, watch, nextTick } from 'vue'
+import { useRoute } from 'vitepress'
+import './custom.css'
 
 export default {
   extends: Theme,
+  setup() {
+    const route = useRoute()
+
+    const initZoom = () => {
+      // 为所有图片添加 zoomable 类
+      const images = document.querySelectorAll('.main img')
+      images.forEach((img) => {
+        if (!img.closest('.no-zoom')) {
+          img.setAttribute('data-zoomable', 'true')
+        }
+      })
+
+      // 初始化 medium-zoom
+      mediumZoom('[data-zoomable]', {
+        background: 'var(--vp-c-bg)',
+        margin: 24
+      })
+    }
+
+    onMounted(() => {
+      initZoom()
+    })
+
+    watch(
+      () => route.path,
+      () => nextTick(() => initZoom())
+    )
+  },
   enhanceApp({ app }) {
     if (typeof window !== 'undefined') {
       console.log('Browser environment detected')

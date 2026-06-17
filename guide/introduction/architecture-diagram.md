@@ -1,7 +1,9 @@
 ---
-title: ttn-cli 架构图
+title: ttn-cli 执行流程
 ---
 
-# ttn-cli 架构图
+# ttn-cli 执行流程
 
-待完善...
+## ttn init 执行流程
+
+## ttn publish 执行流程

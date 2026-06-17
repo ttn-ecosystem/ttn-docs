@@ -1,13 +1,69 @@
 # OSS 部署
 
-## 简介
+## 对象存储服务
+上传的每个文件，实际上都被当成一个 Object（对象） 存储，而不是传统文件系统中的文件。
+- 传统文件存储
+```
+路径：/home/project/dist/index.html
 
-OSS（Object Storage Service）对象存储服务是一种海量、安全、低成本、高可靠的云存储服务，适合存放任意类型的文件。
+文件系统会维护：
+├── home
+│   ├── project
+│   │   ├── dist
+│   │   │   └── index.html
+```
+访问的时候：
+```
+路径查找 -> inode(索引节点，记录文件元信息) -> 磁盘块 -> 读取文件
+```
+- OSS 存储不关心目录
+```
+snapposter.top/0.0.1/index.html
+
+在 oss 内部：
+{
+  "snapposter.top/0.0.1/index.html": "...html...",
+  "snapposter.top/0.0.1/main.js": "...js..."
+}
+```
+- OSS 文件上传
+```
+上传: index.html
+执行：ossutil cp index.html oss://ttn-cli/
+流程：客户端 -> HTTPS -> OSS接入层 -> 元数据服务 -> 存储节点
+```
+元数据，保存到元数据集群。
+```json
+{
+  "bucket": "ttn-cli",
+  "key": "index.html",
+  "size": 1024,
+  "etag": "abc123",
+  "contentType": "text/html"
+}
+```
+文件数据，保存到存储集群。
+```html
+<html>
+hello
+</html>
+```
+- OSS 可以无限扩容
+  传统服务器 500GB，如果满了，扩盘 / 换机器。
+  OSS：底层运行多台机器，系统自动决定在哪台机器上存储。分布式存储的扩容 = 加机器，而不是扩盘。
+
+- OSS 高可用
+  在 OSS 上存储文件之后，文件会被复制到多个存储节点上，以确保高可用。如果某个存储节点故障，文件可以继续从其他存储节点读取。
+
+- OSS 和 SSH 比较
+```
+OSS 并不是因为 HTTP 比 SSH 快，而是因为 OSS 背后是大规模分布式存储集群，
+并且天然结合 CDN，能够支撑远超单机文件系统的容量和并发访问能力。
+```
 
 ## 阿里云 OSS
 
 ### 安装 SDK
-
 ```bash
 npm install ali-oss
 ```
@@ -33,132 +89,23 @@ async function uploadFile() {
     console.error(e);
   }
 }
-
-// 下载文件
-async function downloadFile() {
-  try {
-    const result = await client.get('object-key', 'local-file-path');
-    console.log(result);
-  } catch (e) {
-    console.error(e);
-  }
-}
-
-// 删除文件
-async function deleteFile() {
-  try {
-    const result = await client.delete('object-key');
-    console.log(result);
-  } catch (e) {
-    console.error(e);
-  }
-}
 ```
-
-### 静态网站托管
-
-```javascript
-// 设置静态网站托管
-async function setWebsite() {
-  try {
-    const result = await client.putBucketWebsite('your-bucket-name', {
-      index: 'index.html',
-      error: 'error.html'
-    });
-    console.log(result);
-  } catch (e) {
-    console.error(e);
-  }
-}
+## ttn-cli 中 OSS 密钥存储 TODO 待完善
 ```
+CLI 登录
+     │
+     ▼
+请求：
+POST /sts/token
 
-## 腾讯云 COS
+后端：
+生成临时Token
 
-### 安装 SDK
+返回：
+AccessKeyId
+AccessKeySecret
+SecurityToken
 
-```bash
-npm install cos-nodejs-sdk-v5
+CLI：
+直接上传OSS
 ```
-
-### 基本使用
-
-```javascript
-const COS = require('cos-nodejs-sdk-v5');
-
-const cos = new COS({
-  SecretId: 'your-secret-id',
-  SecretKey: 'your-secret-key'
-});
-
-// 上传文件
-cos.uploadFile({
-  Bucket: 'your-bucket-name',
-  Region: 'your-region',
-  Key: 'object-key',
-  FilePath: 'local-file-path'
-}, function(err, data) {
-  console.log(err || data);
-});
-```
-
-## 部署流程
-
-### 1. 构建项目
-
-```bash
-npm run build
-```
-
-### 2. 上传到 OSS
-
-```bash
-# 使用 ossutil 命令行工具
-ossutil cp -r ./dist oss://your-bucket-name/
-```
-
-### 3. 配置 CDN 加速
-
-在 OSS 控制台配置 CDN 加速域名。
-
-## 自动化部署
-
-### 使用 GitHub Actions
-
-```yaml
-name: Deploy to OSS
-
-on:
-  push:
-    branches: [main]
-
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      
-      - name: Setup Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18'
-          
-      - name: Install dependencies
-        run: npm ci
-        
-      - name: Build
-        run: npm run build
-        
-      - name: Deploy to OSS
-        uses: manyuanrong/setup-ossutil@v2.0
-        with:
-          endpoint: oss-cn-hangzhou.aliyuncs.com
-          access-key-id: ${{ secrets.OSS_ACCESS_KEY_ID }}
-          access-key-secret: ${{ secrets.OSS_ACCESS_KEY_SECRET }}
-          
-      - run: ossutil cp -rf ./dist oss://your-bucket-name/
-```
-
-## 相关链接
-
-- [阿里云 OSS 文档](https://help.aliyun.com/product/31815.html)
-- [腾讯云 COS 文档](https://cloud.tencent.com/document/product/436)

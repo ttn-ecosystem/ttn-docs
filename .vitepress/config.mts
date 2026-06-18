@@ -93,6 +93,7 @@ export default defineConfig({
               { text: 'CDN', link: '/deploy/cdn' },
               { text: 'https', link: '/deploy/https' },
               { text: '秒级回滚', link: '/deploy/rollback' },
+              { text: 'pm2', link: '/deploy/pm2' },
               { text: 'ttn-cli 后端部署', link: '/deploy/backend-deployment' }
             ]
           }
